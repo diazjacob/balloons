@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80616a1a88edb4e43ba880385c641c2f, type: 3}
+  m_Name: Cool33
+  m_EditorClassIdentifier: 
+  _colorCSV: 636D91,4A5378,5A5E6E,6A6963,7B7459,8B7E4F,9B8944,AB943A,BB9F30,CCA925
+  _colors:
+  - {r: 0.3898014, g: 0.42686978, b: 0.5702564, a: 1}
+  - {r: 0.28980142, g: 0.3268698, b: 0.4702564, a: 1}
+  - {r: 0.35340482, g: 0.3690784, b: 0.42970645, a: 1}
+  - {r: 0.41700816, g: 0.411287, b: 0.38915652, a: 1}
+  - {r: 0.48061162, g: 0.45349562, b: 0.3486066, a: 1}
+  - {r: 0.54421496, g: 0.49570423, b: 0.30805665, a: 1}
+  - {r: 0.60781837, g: 0.5379129, b: 0.26750672, a: 1}
+  - {r: 0.6714218, g: 0.5801215, b: 0.22695674, a: 1}
+  - {r: 0.73502517, g: 0.6223301, b: 0.18640684, a: 1}
+  - {r: 0.79862857, g: 0.66453874, b: 0.14585689, a: 1}
+  _generateSize: 10
+  _generateMin: 0.1
+  _generateMonoDeltaCoeff: 1
+  _generateCompliDeltaCoeff: 4

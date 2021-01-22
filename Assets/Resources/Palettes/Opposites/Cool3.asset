@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80616a1a88edb4e43ba880385c641c2f, type: 3}
+  m_Name: Cool3
+  m_EditorClassIdentifier: 
+  _colorCSV: 1D5257,174C51,496366,7B7A7A,AD918F,E0A8A3,FFBFB7,FFD6CC,FFEDE0
+  _colors:
+  - {r: 0.11372549, g: 0.32156864, b: 0.34117648, a: 1}
+  - {r: 0.09019608, g: 0.29803923, b: 0.31764707, a: 1}
+  - {r: 0.28627452, g: 0.3882353, b: 0.4, a: 1}
+  - {r: 0.48235294, g: 0.47843137, b: 0.47843137, a: 1}
+  - {r: 0.6784314, g: 0.5686275, b: 0.56078434, a: 1}
+  - {r: 0.8784314, g: 0.65882355, b: 0.6392157, a: 1}
+  - {r: 1, g: 0.7490196, b: 0.7176471, a: 1}
+  - {r: 1, g: 0.8392157, b: 0.8, a: 1}
+  - {r: 1, g: 0.92941177, b: 0.8784314, a: 1}
+  _generateSize: 10
+  _generateMin: 0
+  _generateMonoDeltaCoeff: 0.8
+  _generateCompliDeltaCoeff: 4

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1831760646550071475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1831760646550071438}
+  - component: {fileID: 1831760646550071437}
+  m_Layer: 0
+  m_Name: ObjectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1831760646550071438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831760646550071475}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1831760646550071437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831760646550071475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd536a417f8e0954c97e792f6ee63bc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnHeight: 3
+  _spawnHeightRange: 0.2
+  _maxSpawnDistance: 11
+  _spawnRecoupTime: 10
+  _birdPoolSize: 15
+  _birdObj: {fileID: 7006330661252310561, guid: 43f7f1487fac00c42ad3575af4c57f6b,
+    type: 3}
+  _birdSize: 0.7
+  _birdSpawnTimeRange: {x: 5, y: 79}
+  _birdSpawnQuantityRange: {x: 3, y: 6}
+  _birdSpawnLateralRange: {x: 1, y: 2.5}
+  _birdMoveSpeedRange: {x: 0.2, y: 0.45}
+  _birdSpawnVerticalRange: 0.2
+  _balloonPoolSize: 5
+  _balloonObj: {fileID: 0}
+  _beaconPoolSize: 6
+  _beaconObj: {fileID: 5075308581345017691, guid: 2dd8ec1be603ca14f88d608adea372e9,
+    type: 3}
+  _beaconSpawnVerticalPosDelta: -0.5
+  _beaconDecentRate: -0.1

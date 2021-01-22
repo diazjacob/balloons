@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80616a1a88edb4e43ba880385c641c2f, type: 3}
+  m_Name: Cool16
+  m_EditorClassIdentifier: 
+  _colorCSV: 001000,00220E,003323,004437,00554C,2E6661,657775,9B888A,D1999E
+  _colors:
+  - {r: 0, g: 0.0627451, b: 0, a: 1}
+  - {r: 0, g: 0.13333334, b: 0.05490196, a: 1}
+  - {r: 0, g: 0.2, b: 0.13725491, a: 1}
+  - {r: 0, g: 0.26666668, b: 0.21568628, a: 1}
+  - {r: 0, g: 0.33333334, b: 0.29803923, a: 1}
+  - {r: 0.18039216, g: 0.4, b: 0.38039216, a: 1}
+  - {r: 0.39607844, g: 0.46666667, b: 0.45882353, a: 1}
+  - {r: 0.60784316, g: 0.53333336, b: 0.5411765, a: 1}
+  - {r: 0.81960785, g: 0.6, b: 0.61960787, a: 1}
+  _generateSize: 10
+  _generateMin: 0
+  _generateMonoDeltaCoeff: 1
+  _generateCompliDeltaCoeff: 4
