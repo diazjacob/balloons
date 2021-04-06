@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6742618188137169996}
   - component: {fileID: 6742618188140594284}
   - component: {fileID: 6742618188139464364}
+  - component: {fileID: 114099886398848622}
   m_Layer: 0
   m_Name: PatchKit
   m_TagString: Untagged
@@ -57,7 +58,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 001bd18cc251140448e16acb52ee9688, type: 2}
+  - {fileID: 2100000, guid: 0373617be8b284f4a9fc0bbe7453abe4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,3 +78,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &114099886398848622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742618188137535596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ad67d11f070dd48a5dde9c0d9402f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _randomMat: 1

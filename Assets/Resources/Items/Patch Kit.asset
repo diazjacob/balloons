@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Patch Kit
   m_EditorClassIdentifier: 
   _prefab: {fileID: 6742618188137535596, guid: 226a2ae52e477384db683d805b8cfc14, type: 3}
-  _type: 2
+  _type: 6
   _cost: 85
   _itemName: Patch Kit
   _itemDescription: A kit of needles and assorted fabric weaves that allow you to

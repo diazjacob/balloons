@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5765e50d10c2aa41bbd1362c3902876, type: 3}
-  m_Name: Personal Beacon
+  m_Name: Letter
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 674887739660750642, guid: 67925284daed8bb40967e5fcc0257987, type: 3}
-  _type: 5
-  _cost: 45
-  _itemName: Personal Beacon
-  _itemDescription: A personal beacon used as a navagation aid. It will keep it's
-    position when dropped on the ground
+  _prefab: {fileID: 6202512895222810498, guid: 0268d80f13ef2624d808ba117c0991e5, type: 3}
+  _type: 4
+  _cost: 0
+  _itemName: Letter
+  _itemDescription: A small letter.

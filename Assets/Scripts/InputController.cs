@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class InputController : ManagedMonobehaviour
 {
+    //DIRECTION ADJUSTMENTS FOR INPUT TO WORLD
+    public static Vector2 RIGHT_DIR = new Vector2(-1, 1).normalized;
+    public static Vector2 UP_DIR = new Vector2(-1, -1).normalized;
+    //Screen corner to center offset
+    private static Vector2 _screenTouchOffset = new Vector2(Screen.width / 2f, Screen.height / 2f);
+
     [SerializeField] private GameObject _balloonObj;        //The balloon object (for rotation)
 
     [Header("Movement Settings: ")]
@@ -65,13 +71,6 @@ public class InputController : ManagedMonobehaviour
     private bool _thrusterModeVertical; //Thruster mode
 
     private Vector2 _touchPos;  //Initial touch pos
-
-    //DIRECTION ADJUSTMENTS FOR INPUT TO WORLD
-    private Vector2 rightDir = new Vector2(-1, 1).normalized; 
-    private Vector2 upDir = new Vector2(-1, -1).normalized;
-
-    //Screen corner to center offset
-    private Vector2 _screenTouchOffset = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
 
     private bool _inventoryOpen = false; //If the inventory is being used
@@ -141,7 +140,7 @@ public class InputController : ManagedMonobehaviour
 #endif
 
         //CHANGE MOVE MODE based on height
-        CheckHeight();
+        //CheckHeight();
 
         //APPLYING LATERAL VELOCITY
         Vector2 vel = MPlayer().GetVelocity();
@@ -161,16 +160,6 @@ public class InputController : ManagedMonobehaviour
         }
     }
 
-    private void CheckHeight() //Sets thrust mode to vertical if we're really high up
-    {
-        if(transform.position.y > _maxInputChangeHeight)
-        {
-            _thrusterModeVertical = true;
-
-            _verticalThrustUI.SetActive(_thrusterModeVertical);
-            _moveThrustUI.SetActive(!_thrusterModeVertical);
-        }
-    }
 
 #region TAPS
 
@@ -292,15 +281,12 @@ public class InputController : ManagedMonobehaviour
 
     public void ToggleThrustMode()
     {
-        if (transform.position.y < _maxInputChangeHeight)
-        {
-            _thrusterModeVertical = !_thrusterModeVertical;
+        ClearInputUI();
 
-            _verticalThrustUI.SetActive(_thrusterModeVertical);
-            _moveThrustUI.SetActive(!_thrusterModeVertical);
+        _thrusterModeVertical = !_thrusterModeVertical;
 
-            ClearInputUI();
-        }
+        _verticalThrustUI.SetActive(_thrusterModeVertical);
+        _moveThrustUI.SetActive(!_thrusterModeVertical);
     }
 
     private void DoubleTap()
@@ -334,7 +320,9 @@ public class InputController : ManagedMonobehaviour
             case "Player":
 
                 Debug.Log("Tapped on Player");
-                if(!MPlayer().GetLanded()) MCameraController().ToggleCameraOrtho();
+                //if(!MPlayer().GetLanded()) MCameraController().ToggleCameraOrtho();
+                MCameraController().ToggleCameraOrtho();
+
 
                 break;
 
@@ -388,8 +376,8 @@ public class InputController : ManagedMonobehaviour
                 //Movement calcs
                 Vector2 touchDelta = mainTouch - _touchPos;
 
-                Vector2 moveDir = rightDir * touchDelta.x * _moveSpeed;
-                moveDir += upDir * touchDelta.y * _moveSpeed;
+                Vector2 moveDir = RIGHT_DIR * touchDelta.x * _moveSpeed;
+                moveDir += UP_DIR * touchDelta.y * _moveSpeed;
 
                 moveDir = Vector2.ClampMagnitude(moveDir, _accelCap);
 
@@ -433,8 +421,8 @@ public class InputController : ManagedMonobehaviour
             //Movement calcs
             Vector2 touchDelta = mainTouch - _touchPos;
 
-            Vector2 moveDir = rightDir * touchDelta.x * _moveSpeed;
-            moveDir += upDir * touchDelta.y * _moveSpeed;
+            Vector2 moveDir = RIGHT_DIR * touchDelta.x * _moveSpeed;
+            moveDir += UP_DIR * touchDelta.y * _moveSpeed;
 
             moveDir = Vector2.ClampMagnitude(moveDir, _accelCap);
 
@@ -562,7 +550,6 @@ public class InputController : ManagedMonobehaviour
 
 #endregion
 
-
     private void CheckLanding()
     {
         float verticalDist = MPlayer().GetTrueAltitude();
@@ -615,7 +602,7 @@ public class InputController : ManagedMonobehaviour
 
     private void Takeoff()
     {
-        MPlayer().SetVerticalVelocity(_verticalSpeedCap);
+        MPlayer().SetVerticalVelocity(_verticalSpeedCap/2f); //The full speed cap was too much :woozy:
         MPlayer().SetVelocity(Vector2.zero);
         MPlayer().SetLanded(false);
 

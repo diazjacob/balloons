@@ -8,8 +8,10 @@ public class Beacon : ManagedMonobehaviour
     [SerializeField] private GameObject _boxObj;
     private ParticleSystem _particles;
     private ParticleSystemRenderer _rend;
-    private WorldObject obj;
+    private WorldObject _wo;
     private bool _landed;
+
+    private Mail _mail;
 
     private void Awake()
     {
@@ -21,7 +23,7 @@ public class Beacon : ManagedMonobehaviour
         Player.OnLeaveWorld += Reset;
         Player.OnPaletteUpdate += SetSmokeColor;
 
-        obj = GetComponent<WorldObject>();
+        _wo = GetComponent<WorldObject>();
         _rend = GetComponentInChildren<ParticleSystemRenderer>();
         _particles = GetComponentInChildren<ParticleSystem>();
 
@@ -33,17 +35,28 @@ public class Beacon : ManagedMonobehaviour
     {
         if(!_landed) //If we're still gliding
         {
-            Vector2 pos = obj.GetPosition();
+            Vector2 pos = _wo.GetPosition();
             float height = MPlayer().GetTerrainDisplayValue(pos.x, pos.y);
 
             if (height > transform.position.y) //The falling to landed transition -------
             {
+                if (_mail != null)
+                {
+                    MPlayer().CheckRemoveMail(_mail, _wo.GetPosition(), height);
+
+                    _mail = null;
+                }
+                else
+                {
+                    _particles.Play();
+                }
+
                 _landed = true;
-                obj.InitalizeVelocity(Vector2.zero, 0);
-                obj.SetIsMoving(false);
+                _wo.InitalizeVelocity(Vector2.zero, 0);
+                _wo.SetIsMoving(false);
                 _paracuteObj.SetActive(false);
-                _particles.Play();
-                
+
+
             }
             else //As we're activley falling ------------------------------
             {
@@ -61,6 +74,11 @@ public class Beacon : ManagedMonobehaviour
 
     }
 
+    public void SetMail(Mail mail)
+    {
+        _mail = mail;
+    }
+
     private void Reset()
     {
         _landed = false;
@@ -68,7 +86,6 @@ public class Beacon : ManagedMonobehaviour
         _paracuteObj.SetActive(true);
         _particles.Stop();
     }
-
 
     private void SetSmokeColor()
     {

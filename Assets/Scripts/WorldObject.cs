@@ -115,9 +115,6 @@ public class WorldObject : ManagedMonobehaviour
     //Initalize in the world (for initalizing the position)
     public void InitalizeWorldPresense(Vector2 position, float vert = 0)
     {
-        HouseControl house = GetComponentInChildren<HouseControl>();
-        if (house != null) house.Initalize();
-
         _position = position;
         transform.rotation = Quaternion.Euler(0, Random.value * 360, 0);
 
@@ -131,6 +128,9 @@ public class WorldObject : ManagedMonobehaviour
             _verticalPos = vert;
             _inAir = true;
         }
+
+        HouseControl house = GetComponentInChildren<HouseControl>();
+        if (house != null) house.Initalize();
 
         _isInitalized = true;
     }

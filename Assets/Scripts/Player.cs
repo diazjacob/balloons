@@ -54,6 +54,13 @@ public class Player : ManagedMonobehaviour
     private float _currentVerticalVelocity;     //The current vertical velocity
 
 
+    [Space]
+
+    [Header("Mail Settings:")]
+    private List<Mail> _mailList = new List<Mail>();
+    [SerializeField] private int _mailCapacity = 2;
+
+
     //The events
     public delegate void PaletteChangeAction();
     public static event PaletteChangeAction OnPaletteUpdate;    //The action to update all objects with palette colors
@@ -73,6 +80,7 @@ public class Player : ManagedMonobehaviour
         _contractManager = GetComponent<ContractManager>();
         _coverPlaneMat = _coverPlane.GetComponent<MeshRenderer>().material;
 
+        _mailList = new List<Mail>();
 
 
         OnPaletteUpdate += UpdateIndicatorColor; //Do the initial update of the palette
@@ -80,6 +88,7 @@ public class Player : ManagedMonobehaviour
 
     private void Start()
     {
+        _playerStats = new PlayerStats();
 
         //TESTING
         DebugRegnerateTerrain();
@@ -219,17 +228,13 @@ public class Player : ManagedMonobehaviour
 
     #region CONTRACT
 
-    public int GenerateContracts()
+    public void GenerateContracts()
     {
-        int num = 5;
-        _contractManager.Generate(num);
-        return num;
+        _contractManager.Generate();
     }
 
     public void SelectContract(int index)
     {
-        _contractManager.SelectContract(index);
-
         _contractFinishedAndValid = false;
         _contractAbandoned = false;
     }
@@ -292,6 +297,110 @@ public class Player : ManagedMonobehaviour
 
     #endregion
 
+    #region MAIL
+
+    public bool AddMail(Mail mail)
+    {
+        bool result = false;
+
+        if(mail != null)// && _mailList.Count < _mailCapacity)
+        {
+            if(!MInventoryManager().IsFull())
+            {
+                int val = MInventoryManager().AddItem(mail.GetType());
+                if (val != -1)
+                {
+                    //print("Mail Location index:" + val);
+
+                    mail.LinkToInventory(val);
+                    _mailList.Add(mail);
+                    result = true;
+                    mail = null;
+                }
+                else Debug.LogError("Inventory Marked as 'Not Full' but no slot was found.");
+
+            }
+        }
+
+        return result;
+    }
+
+    public Mail[] GetAllMail()
+    {
+        Mail[] mailList = new Mail[6];
+        _mailList.CopyTo(mailList);
+
+        return mailList;
+    }
+
+    public Mail GetMailFromRef(int index)
+    {
+        Mail result = null;
+
+        for(int i = 0; i < _mailList.Count && result == null; i++)
+        {
+            if(_mailList[i].GetInventoryLink() == index)
+            {
+                result = _mailList[i];
+            }
+        }
+
+        if (result == null) Debug.LogError("Could not find mail in _mailList from refrence with index: " + index);
+
+        return result;
+    }
+
+    public void CheckRemoveMail(Mail mail, Vector2 position, float height)
+    {
+        bool valid = _mailList.Remove(mail);
+
+        if (valid)
+        {
+            Vector2 targ = mail.GetTarget();
+
+            float dist = Vector2.Distance(targ, position);
+
+            float result = mail.GetValue() - dist;
+
+
+            string message = "Package Drop Delivered";
+
+            if (height < 0.05)
+            {
+                result /= 2; //Dividing the result by 2 if the package ends up in the water. Lol
+                message += "(Water Damaged)";
+            }
+
+            _playerStats.IncrementGold((int)result);
+            MUIManager().NewIconFade(new Vector2(Screen.width / 2.0f, Screen.height / 2.0f), message, GetPalette().GetBaseColor());
+        }
+        else Debug.LogError("Attempted to deliver mail that was not present in the player's inverotry");
+
+
+
+    }
+
+    public void CheckRemoveMail(Mail mail)
+    {
+        bool valid = _mailList.Remove(mail);
+
+        if (valid)
+        {
+            float result = mail.GetValue();
+
+            _playerStats.IncrementGold((int)result);
+
+            string message = "Package Hand Delivered!";
+            MUIManager().NewIconFade(new Vector2(Screen.width / 2.0f, Screen.height / 2.0f), message, GetPalette().GetBaseColor());
+        }
+        else Debug.LogError("Attempted to deliver mail that was not present in the player's inverotry");
+    }
+
+
+
+    #endregion
+
+
 
     #region LOOKS
 
@@ -317,14 +426,14 @@ public class Player : ManagedMonobehaviour
     #endregion
 
 
+
     //DEBUG --------------------------------------
     [ContextMenu("Regenerate Contract Terrain")]
     public void DebugRegnerateTerrain()
     {
         if (_contractManager != null)
         {
-            _contractManager.Generate(1);
-            SelectContract(0);
+            _contractManager.Generate();
         }
         //regen palette
         PaletteSetting[] p = Resources.LoadAll<PaletteSetting>("Palettes/");
@@ -333,6 +442,21 @@ public class Player : ManagedMonobehaviour
     }
     [ContextMenu("Refresh Palette Setting")]
     public void DebugUpdatePalette() { OnPaletteUpdate(); }
+
+
+    private void OnDrawGizmos()
+    {
+        for(int i = 0; i < _mailList.Count; i++)
+        {
+            if(_mailList[i] != null)
+            {
+                Vector2 targ = GetPlayerReletivePosition(_mailList[i].GetTarget());
+                Vector3 newTarg = new Vector3(targ.x, 0, targ.y);
+
+                Debug.DrawLine(transform.position, newTarg, Color.magenta);
+            }
+        }
+    }
     //DEBUG -----------------------------------------
 
 }

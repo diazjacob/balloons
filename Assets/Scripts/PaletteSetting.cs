@@ -111,6 +111,14 @@ public class PaletteSetting : ScriptableObject
         return returnCol;
     }
 
+    public Color GetRandomColor()
+    {
+        Color returnCol = Color.white;
+        int rand = Random.Range(0, _confirmedColors.Length);
+
+        return _confirmedColors[rand];
+    }
+
     #endregion
 
 

@@ -21,9 +21,11 @@ public class InventoryManager : ManagedMonobehaviour
         InitalizeInventory();
 
         //DEBUG
-        _inventorySlots[0].SetItem(Items.PersonalBeacon);
+
         _inventorySlots[1].SetItem(Items.PersonalBeacon);
+
         _inventorySlots[4].SetItem(Items.PersonalBeacon);
+
         //DEBUG
     }
 
@@ -53,16 +55,73 @@ public class InventoryManager : ManagedMonobehaviour
             _inventorySlots[i].Reset();
         }
     }
-    private bool IsFull() //If the player's inventory is full
+    public bool IsFull() //If the player's inventory is full
     {
         bool isFull = true;
 
         for(int i = 0; i < _inventorySlots.Length && isFull; i++)
         {
-            isFull = _inventorySlots[i].GetItem() == Items.None;
+            //print(_inventorySlots[i].GetItem());
+            if (_inventorySlots[i].GetItem() == Items.None) isFull = false;
         }
 
         return isFull;
+    }
+
+    public bool AddItem(Items type)
+    {
+        bool result = false;
+        int location = -1;
+
+        for(int i = 0; i < _allItems.Length && !result; i++)
+        {
+            result = _inventorySlots[i].GetItem() == Items.None;
+            location = i;
+        }
+
+        print("Adding Item to slot: " +location);
+
+        if(result)
+        {
+            _inventorySlots[location].SetItem(type);
+        }
+
+        return result;
+    }
+
+    public int AddItem(PackageType mailType)
+    {
+        int location = -1;
+
+        for (int i = 0; i < _inventorySlots.Length && location == -1; i++)
+        {
+            if(_inventorySlots[i].GetItem() == Items.None) location = i;
+        }
+
+        if (location != -1)
+        {
+            Items realType = Items.None;
+
+            switch (mailType)
+            {
+                case PackageType.Letter:
+                    realType = Items.MailLetter;
+                    break;
+                case PackageType.Parcel:
+                    realType = Items.MailParcel;
+                    break;
+                case PackageType.Package:
+                    realType = Items.MailPackage;
+                    break;
+                case PackageType.Crate:
+                    realType = Items.MailCrate;
+                    break;
+            }
+
+            _inventorySlots[location].SetItem(realType);
+        }
+
+        return location;
     }
 
     private int RefToInt(GameObject container)
@@ -75,42 +134,42 @@ public class InventoryManager : ManagedMonobehaviour
 
         if (index == -1) //Can't have an empty slot
         {
-            Debug.LogError("ERROR: Could not find inventory slot by objcet refrence.");
+            Debug.LogError("ERROR: Could not find inventory slot by object refrence.");
         }
 
         return index;
     }
 
-    private void BuySellItem(GameObject container, bool buying = true) //Buy or sell and item based on the slot obj ref
-    {
-        int index = RefToInt(container);
+    //private void AddItem(GameObject container) //Buy or sell and item based on the slot obj ref
+    //{
+    //    int index = RefToInt(container);
 
-        if (index != -1)
-        {
-            Items item = _inventorySlots[index].GetItem();
+    //    if (index != -1)
+    //    {
+    //        Items item = _inventorySlots[index].GetItem();
 
-            if (item != Items.None)
-            {
-                ItemSO itemRef = null;
+    //        if (item != Items.None)
+    //        {
+    //            ItemSO itemRef = null;
 
-                for (int i = 0; i < _allItems.Length && itemRef == null; i++)
-                {
-                    if (_allItems[i].GetType() == item) itemRef = _allItems[i];
-                }
+    //            for (int i = 0; i < _allItems.Length && itemRef == null; i++)
+    //            {
+    //                if (_allItems[i].GetType() == item) itemRef = _allItems[i];
+    //            }
 
-                int cost = 0;
+    //            int cost = 0;
 
-                if (buying) cost = itemRef.GetCost();
-                else cost = -itemRef.GetSell();
-                //SELL ITEM HERE
+    //            if (buying) cost = itemRef.GetCost();
+    //            else cost = -itemRef.GetSell();
+    //            //SELL ITEM HERE
 
-                MPlayer().GetPlayerStats().IncrementGold(cost);
+    //            MPlayer().GetPlayerStats().IncrementGold(cost);
 
-                _inventorySlots[index].SetItem(Items.None);
-            }
-        }
-        else Debug.Log("ERROR: Copuld Not Process BuySellItem.");
-    }
+    //            _inventorySlots[index].SetItem(Items.None);
+    //        }
+    //    }
+    //    else Debug.Log("ERROR: Copuld Not Process BuySellItem.");
+    //}
 
     //Use an item, returns if the inventory should be closed
     public bool UseItem(GameObject container)
@@ -127,27 +186,25 @@ public class InventoryManager : ManagedMonobehaviour
 
                 Debug.Log("Using item: " + itemType.ToString());
 
-                switch (itemType)   //Handle each item usage acordingly
+                if (itemType == Items.PersonalBeacon)  //Handle each item usage acordingly
                 {
-                    case Items.PersonalBeacon:
-
-                        MObstacleManager().SendBeacon();
-                        _inventorySlots[index].SetItem(Items.None);
-                        invClosed = true;
-
-                        break;
-                    case Items.PatchKit:
-
-
-
-                        break;
-                    case Items.ShopListing:
-
-
-
-                        break;
+                    MObstacleManager().SendBeacon();
                 }
+                else if (itemType == Items.PatchKit)
+                {
+
+                }
+                else if(itemType == Items.MailPackage || itemType == Items.MailLetter 
+                        || itemType == Items.MailCrate || itemType == Items.MailParcel)
+                {
+                    if (!MPlayer().GetLanded()) MObstacleManager().SendMailBeacon(MPlayer().GetMailFromRef(index));
+                    else MPlayer().CheckRemoveMail(MPlayer().GetMailFromRef(index));
+                }
+                
             }
+
+            _inventorySlots[index].SetItem(Items.None);
+            invClosed = true;
         }
         else Debug.Log("ERROR: Copuld Not Process UseItem.");
 
@@ -165,7 +222,11 @@ public class InventorySlot
 
     private int _currentItemIndex; //equal to the 'Items' enum order subtract 1 (so -1 is empty)   :D
 
-    public InventorySlot (GameObject[] items) { _inventoryItems = items; }
+    public InventorySlot (GameObject[] items) 
+    {
+        _currentItemIndex = -1;
+        _inventoryItems = items; 
+    }
 
 
     public Items GetItem() { return (Items)(_currentItemIndex + 1); }
@@ -189,6 +250,9 @@ public enum Items //All our items, DO NOT change the order of this enum. And kee
     None,
     PersonalBeacon,
     PatchKit,
-    ShopListing
+    MailLetter,
+    MailParcel,
+    MailPackage,
+    MailCrate
 }
 

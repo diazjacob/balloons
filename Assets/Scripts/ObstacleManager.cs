@@ -301,6 +301,35 @@ public class ObstacleManager : ManagedMonobehaviour
         
     }
 
+    public void SendMailBeacon(Mail mail)
+    {
+        int index = -1;
+
+        if (_beaconsReady > 0)
+        {
+            for (int i = 0; i < _beaconPool.Length && index == -1; i++)
+            {
+                if (!_beaconPool[i].IsInitalized()) index = i;
+            }
+
+            if (index != -1)
+            {
+                _beaconsReady--;
+
+                float vertSpeed = _beaconDecentRate + Mathf.Clamp(MPlayer().GetVerticalVelocity(), -1, 0);
+
+                _beaconPool[index].InitalizeWorldPresense(MPlayer().GetPosition(), MPlayer().GetVerticalPosition() + _beaconSpawnVerticalPosDelta);
+                _beaconPool[index].InitalizeVelocity(MPlayer().GetVelocity(), vertSpeed);
+
+                Beacon controller = _beaconPool[index].GetComponent<Beacon>();
+
+                controller.SetMail(mail);
+            }
+        }
+        else Debug.LogError("ERROR: Could not spawn beacon.");
+
+    }
+
 
     #endregion
 

@@ -22,7 +22,6 @@ public class ContractManager : ManagedMonobehaviour
 
     [Header("EXPOSED VALUES. DONT CHANGE")]
     //THE TERRAIN
-    [SerializeField] private Contract[] _possibleContracts;
     private Contract _currentContract;
 
     private void Awake()
@@ -69,40 +68,44 @@ public class ContractManager : ManagedMonobehaviour
 
     public Vector2 GetTargetPos(Vector2 sourcePos)
     {
-        Vector2 result = Vector2.zero;
+        //Vector2 result = Vector2.zero;
 
-        if (_currentContract != null)
-        {
-            Vector2[] a = _currentContract.GetPOIArray();
+        //if (_currentContract != null)
+        //{
+        //    Vector2[] a = _currentContract.GetPOIArray();
 
-            int iteration = 0;
-            int val = 0;
+        //    int iteration = 0;
+        //    int val = 0;
 
-            do
-            {
-                val = Random.Range(0, a.Length);
+        //    do
+        //    {
+        //        val = Random.Range(0, a.Length);
 
-                if (Vector2.Distance(sourcePos, a[val]) > _targetingFracMin * _pointFindRadius) break;
+        //        if (Vector2.Distance(sourcePos, a[val]) > _targetingFracMin * _pointFindRadius) break;
 
-                iteration++;
-            }
-            while (iteration < a.Length);
-            
-
-            result = a[val];
-        }
-        else Debug.LogError("Could not find an appropriate mail target.");
+        //        iteration++;
+        //    }
+        //    while (iteration < a.Length);
 
 
-        return result;
-    }
+        //    result = a[val];
+        //}
+        //else Debug.LogError("Could not find an appropriate mail target.");
 
-    public void SelectContract(int index)
-    {
-        if (index >= 0 && index < _possibleContracts.Length)
-        {
-            _currentContract = _possibleContracts[index];
-        }
+        //return result;
+
+
+
+
+
+        Vector2[] a = _currentContract.GetPOIArray();
+
+        int i = Random.Range(0, a.Length);
+        Vector2 targ = a[i];
+
+        if(Vector2.Distance(targ, sourcePos) < 0.01f) targ = a[(i+1)%a.Length];
+
+        return targ;
     }
 
     #endregion
@@ -111,13 +114,11 @@ public class ContractManager : ManagedMonobehaviour
     #region GENERATE
 
     //IN THE FUTURE, SUPPLY THE PLAYER STATS AND GENERATE CONTRACTS IN A SMARTER WAY
-    public void Generate(int num)
+    public void Generate()
     {
-        _possibleContracts = new Contract[num];
-        for(int i = 0; i < _possibleContracts.Length; i++)
-        {
-            _possibleContracts[i] = GenerateNewContract();
-        }
+
+            _currentContract = GenerateNewContract();
+        
     }
 
     private Contract GenerateNewContract()

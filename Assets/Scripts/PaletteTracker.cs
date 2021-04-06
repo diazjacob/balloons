@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class PaletteTracker : ManagedMonobehaviour
 {
-    [SerializeField] private List<Image> _imagesToUpdate;
-    [SerializeField] private List<Text> _textToUpdate;
+    [SerializeField] private bool _imagesDarkened;
+
+    private List<Image> _imagesToUpdate;
+    private List<Text> _textToUpdate;
 
     void Awake()
     {
@@ -27,7 +29,11 @@ public class PaletteTracker : ManagedMonobehaviour
         {
             var control = _imagesToUpdate[i];
             float a = control.color.a;
-            var newColor = MPlayer().GetPalette().GetMidColor();
+
+            Color newColor = MPlayer().GetPalette().GetMidColor();
+
+            if (_imagesDarkened) newColor = MPlayer().GetPalette().GetBaseColor();
+            
             control.color = new Color(newColor.r, newColor.g, newColor.b, a);
         }
         for (int i = 0; i < _textToUpdate.Count; i++)

@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e5765e50d10c2aa41bbd1362c3902876, type: 3}
-  m_Name: Personal Beacon
+  m_Name: Crate
   m_EditorClassIdentifier: 
-  _prefab: {fileID: 674887739660750642, guid: 67925284daed8bb40967e5fcc0257987, type: 3}
-  _type: 5
-  _cost: 45
-  _itemName: Personal Beacon
-  _itemDescription: A personal beacon used as a navagation aid. It will keep it's
-    position when dropped on the ground
+  _prefab: {fileID: 1492459184099195785, guid: bc3cdfd0b88cea14096ddbef7e5b3f98, type: 3}
+  _type: 7
+  _cost: 0
+  _itemName: 
+  _itemDescription: 
