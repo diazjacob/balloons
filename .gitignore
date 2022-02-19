@@ -151,3 +151,8 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+
+
+
+
+/Assets/FastNoiseUnity/
