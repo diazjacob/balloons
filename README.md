@@ -4,7 +4,7 @@ This small project was the start of my mobile game. The original game took big i
 
 It has since gone through many different changes and the gameplay and mechanics are no longer anything like the original prototype. So, I've decided to make this older repository public! Enjoy! 
 
-(Note: I have removed a few pieces of code that do not belong to me! Everything currently in this repo is 100% mine)
+(Note: I have removed a few pieces of code that do not belong to me! Everything currently in this repo is 100% my work)
 
 ## Some Pictures:
 
