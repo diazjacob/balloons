@@ -484,7 +484,14 @@ public class InputController : ManagedMonobehaviour
             _verticalThrustKnobHolder.SetActive(false);
             _verticalThrustKnob.SetActive(false);
 
-            returnVal = Mathf.Sign(MPlayer().GetVerticalVelocity()) * -_verticalSpeedBleed;
+            float vertVelocity = MPlayer().GetVerticalVelocity();
+
+            if (Mathf.Abs(vertVelocity) > _verticalSpeedHaltThreshold) returnVal = Mathf.Sign(vertVelocity) * -_verticalSpeedBleed;
+            else
+            {
+                returnVal = 0;
+                MPlayer().SetVerticalVelocity(0);
+            }
         }
 
         return returnVal;

@@ -190,7 +190,7 @@ RectTransform:
   m_GameObject: {fileID: 390903203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.114}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1211584429}
   m_RootOrder: 0
@@ -262,7 +262,7 @@ RectTransform:
   m_GameObject: {fileID: 490379304}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.114}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.85, y: 1.85, z: 1.85}
   m_Children: []
   m_Father: {fileID: 1211584429}
   m_RootOrder: 5
@@ -395,7 +395,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211584428}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 390903204}
@@ -649,7 +649,7 @@ RectTransform:
   m_GameObject: {fileID: 1627904866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.114}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_Children: []
   m_Father: {fileID: 1211584429}
   m_RootOrder: 1
@@ -721,7 +721,7 @@ RectTransform:
   m_GameObject: {fileID: 1782848391}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.114}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.47, y: 1.47, z: 1.47}
   m_Children: []
   m_Father: {fileID: 1211584429}
   m_RootOrder: 3
@@ -793,7 +793,7 @@ RectTransform:
   m_GameObject: {fileID: 1820793821}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.114}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children: []
   m_Father: {fileID: 1211584429}
   m_RootOrder: 2
@@ -955,7 +955,7 @@ RectTransform:
   m_GameObject: {fileID: 1976813425}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.114}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.65, y: 1.65, z: 1.65}
   m_Children: []
   m_Father: {fileID: 1211584429}
   m_RootOrder: 4
@@ -6229,14 +6229,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _balloonObj: {fileID: 5620061796620909293}
-  _moveSpeed: 0.0003
-  _accelCap: 0.002
+  _moveSpeed: 0.0004
+  _accelCap: 0.0025
   _speedCap: 0.45
   _speedHaltThreshold: 0.0003
   _verticalMoveSpeed: 0.008
   _verticalSpeedCap: 0.35
   _verticalAccelCap: 0.0015
-  _verticalSpeedBleed: 0.0003
+  _verticalSpeedBleed: 0.0009
   _verticalSpeedHaltThreshold: 0.003
   _rotationCoeff: 30
   _maxHeight: 12

@@ -173,8 +173,8 @@ public class Mail
 
     public void LinkToInventory(int linkVal)
     {
+        if (_inventoryLinkVal != -1) Debug.LogError("Mail Item has been linked to inventory slot more than once.");
         _inventoryLinkVal = linkVal;
-        //if (_inventoryLinkVal != -1) Debug.LogError("Mail Item has been linked to inventory slot more than once.");
     }
 
 
