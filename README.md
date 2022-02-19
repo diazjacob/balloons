@@ -2,7 +2,7 @@
 
 This small project was the start of my mobile game. The original game took big inspiration from the older indie game [The Aurora Wager](https://ramjetanvil.itch.io/the-aurora-wager) as well as the popular game [Downwell](https://store.steampowered.com/app/360740/Downwell/). While fun to look at, I found this prototype to be very slow and not that engaging. So I decided to speed things up and replace my hot air balloon with a jet! I take further inspiration from the likes of [Luftrausers](https://store.steampowered.com/app/233150/LUFTRAUSERS/) and [Sky Rogue](https://store.steampowered.com/app/381020/Sky_Rogue/). (Can you tell I enjoy rougelikes?)
 
-It has since gone through many different changes and the gameplay and mechanics are no longer anything like the original prototype. So, I've decided to make this older repository public! Enjoy!
+It has since gone through many different changes and the gameplay and mechanics are no longer anything like the original prototype. So, I've decided to make this older repository public! Enjoy! (Note: I have removed a few pieces of code that do not belong to me! Everything currently in this repo is 100% mine)
 
 ## Some Pictures:
 
